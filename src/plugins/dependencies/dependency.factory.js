@@ -39,9 +39,12 @@
              */
             this.disconnect = function() {
                 if (this.connection) {
-                    if (this.connection.endpoints) {
+                    if (!this.manager.plumb.detach) {
+                        this.manager.plumb.deleteConnection(this.connection);
+                    } else {
                         this.manager.plumb.detach(this.connection);
                     }
+
                     this.connection.$dependency = undefined;
                     this.connection = undefined;
                 }

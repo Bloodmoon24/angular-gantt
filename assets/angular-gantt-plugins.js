@@ -1,5 +1,5 @@
 /*
-Project: angular-gantt v1.3.3 - Gantt chart component for AngularJS
+Project: angular-gantt v1.3.4 - Gantt chart component for AngularJS
 Authors: Marco Schweighauser, Rémi Alvergnat
 License: MIT
 Homepage: https://www.angular-gantt.com
@@ -2672,9 +2672,12 @@ Github: https://github.com/angular-gantt/angular-gantt.git
              */
             this.disconnect = function() {
                 if (this.connection) {
-                    if (this.connection.endpoints) {
+                    if (!this.manager.plumb.detach) {
+                        this.manager.plumb.deleteConnection(this.connection);
+                    } else {
                         this.manager.plumb.detach(this.connection);
                     }
+
                     this.connection.$dependency = undefined;
                     this.connection = undefined;
                 }
